@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Senha - The Lobby</title>
+<style>
+  body {
+    background-color: #000000; /* fundo preto */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #theLobby {
+    font-size: 5em;
+    font-weight: bold;
+    color: #ffffff;
+    -webkit-text-stroke: 2px #00ff00; /* contorno verde */
+    text-align: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 3s, transform 3s;
+  }
+
+  #faseDois {
+    font-size: 1em;
+    margin-top: 10px;
+    color: #cccccc;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 3s, transform 3s;
+    text-align: center;
+  }
+
+  #codigo {
+    font-size: 1.2em;
+    margin-top: 20px;
+    display: none;
+    word-break: break-all;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  #senhaContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input[type="password"] {
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #00ff00;
+    outline: none;
+  }
+
+  input[type="password"]::placeholder {
+    color: #aaaaaa;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #00ff00;
+  }
+
+  button:hover {
+    background-color: #00ff00;
+    color: #000000;
+  }
+
+  #mensagem {
+    margin-top: 10px;
+    font-size: 1em;
+    height: 1.2em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div id="senhaContainer">
+  <input type="password" id="senhaInput" placeholder="Digite a senha">
+  <button onclick="verificarSenha()">Entrar</button>
+  <div id="mensagem"></div>
+</div>
+
+<div id="theLobby">The Lobby</div>
+<div id="faseDois">Fase Dois</div>
+<div id="codigo">jvvru&lt;11ukvgu0iqqing0eqo1xkgy1kojquv</div>
+
+<script>
+  const senhaCorreta = "the hollow"; // sua senha
+
+  function verificarSenha() {
+    const input = document.getElementById("senhaInput").value.trim();
+    const mensagem = document.getElementById("mensagem");
+
+    if(input === senhaCorreta) {
+      mensagem.textContent = "Senha correta!";
+      
+      // Esconde o input e botão
+      setTimeout(() => {
+        document.getElementById("senhaContainer").style.display = "none";
+
+        const theLobby = document.getElementById("theLobby");
+        const faseDois = document.getElementById("faseDois");
+
+        // Mostra e anima subindo
+        theLobby.style.opacity = "1";
+        theLobby.style.transform = "translateY(0)";
+        faseDois.style.opacity = "1";
+        faseDois.style.transform = "translateY(0)";
+
+        // Depois de 3s, some The Lobby e Fase Dois
+        setTimeout(() => {
+          theLobby.style.opacity = "0";
+          theLobby.style.transform = "translateY(-50px)";
+          faseDois.style.opacity = "0";
+          faseDois.style.transform = "translateY(-50px)";
+
+          // Depois de sumir, mostra o código
+          setTimeout(() => {
+            document.getElementById("codigo").style.display = "block";
+          }, 3000);
+
+        }, 3000);
+
+      }, 500);
+
+    } else {
+      mensagem.textContent = "Senha incorreta!";
+    }
+  }
+</script>
+
+</body>
+</html>
